@@ -9,10 +9,10 @@ export const theme = {
     appBackground: '#FFECEC',
     controlBackground: '#FFFFFF',
     borderColor: '#CCC',
-    axisColor: 'lightgray',
+    axisColor: '#8A8A8A',
     rectFill: '#CCC',
     rectStroke: '#000',
-    pivotColor: 'red',
+    pivotColor: '#FF0000',
   },
   fontSizes: {
     small: '0.8em',

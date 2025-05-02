@@ -1,19 +1,15 @@
-import styled from '@emotion/styled'
 import { useEffect, useRef } from 'react'
 
 import { theme } from '@/styles/theme'
 import { RectState } from '@/types'
+
+import { Canvas, CanvasContainer } from './CanvasView.style'
 
 interface CanvasViewProps {
   rect: RectState
   width?: number
   height?: number
 }
-
-const StyledCanvas = styled.canvas`
-  border: 2px solid ${({ theme }) => theme.colors.borderColor};
-  background-color: ${({ theme }) => theme.colors.canvasBackground};
-`
 
 const CanvasView = ({ rect, width = 500, height = 500 }: CanvasViewProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -60,7 +56,11 @@ const CanvasView = ({ rect, width = 500, height = 500 }: CanvasViewProps) => {
     ctx.restore()
   }, [rect, width, height])
 
-  return <StyledCanvas ref={canvasRef} width={width} height={height} />
+  return (
+    <CanvasContainer>
+      <Canvas ref={canvasRef} width={width} height={height} />
+    </CanvasContainer>
+  )
 }
 
 export default CanvasView

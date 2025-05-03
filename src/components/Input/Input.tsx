@@ -1,18 +1,28 @@
 import { InputHTMLAttributes } from 'react'
 
-import { InputBase, InputContainer, InputLabel } from './Input.style'
+import {
+  ErrorMessage,
+  InputBase,
+  InputBaseContainer,
+  InputContainer,
+  InputLabel,
+} from './Input.style'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   labelSize?: 'small' | 'medium' | 'large'
   hasError?: boolean
+  errorMessage?: string
 }
 
-const Input = ({ label, labelSize, hasError, ...props }: InputProps) => {
+const Input = ({ label, labelSize, hasError, errorMessage, ...props }: InputProps) => {
   return (
     <InputContainer>
       {label && <InputLabel labelSize={labelSize}>{label}</InputLabel>}
-      <InputBase hasError={hasError} {...props} />
+      <InputBaseContainer>
+        <InputBase hasError={hasError} {...props} />
+        {hasError && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      </InputBaseContainer>
     </InputContainer>
   )
 }

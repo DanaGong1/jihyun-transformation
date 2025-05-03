@@ -4,7 +4,6 @@ import { InputProps } from './Input'
 
 export const InputContainer = styled.div`
   display: flex;
-  align-items: center;
   gap: 8px;
   margin-bottom: 10px;
 `
@@ -14,6 +13,13 @@ export const InputLabel = styled.label<{ labelSize?: 'small' | 'medium' | 'large
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.text};
   width: ${(props) => props.theme.labelSizes[props.labelSize || 'medium']};
+  margin-top: 6px;
+`
+
+export const InputBaseContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 `
 
 export const InputBase = styled.input<InputProps>`
@@ -37,4 +43,9 @@ export const InputBase = styled.input<InputProps>`
   }
   -moz-appearance: textfield;
   appearance: none;
+`
+
+export const ErrorMessage = styled.span`
+  color: ${({ theme }) => theme.colors.error};
+  font-size: ${({ theme }) => theme.fontSizes.small};
 `

@@ -11,7 +11,7 @@ interface CanvasViewProps {
   height?: number
 }
 
-const CanvasView = ({ rect, width = 500, height = 500 }: CanvasViewProps) => {
+const CanvasView = ({ rect, width = 600, height = 600 }: CanvasViewProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -21,14 +21,12 @@ const CanvasView = ({ rect, width = 500, height = 500 }: CanvasViewProps) => {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const { position, size, pivot, rotation } = rect
     const canvasWidth = canvas.width
     const canvasHeight = canvas.height
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight)
 
     ctx.save()
-
     ctx.translate(canvasWidth / 2, canvasHeight / 2)
     ctx.scale(1, -1)
 
@@ -41,9 +39,34 @@ const CanvasView = ({ rect, width = 500, height = 500 }: CanvasViewProps) => {
     ctx.lineTo(0, canvasHeight / 2)
     ctx.stroke()
 
+    ctx.strokeStyle = theme.colors.gridColor
+    ctx.lineWidth = 0.25
+
+    ctx.beginPath()
+    for (
+      let x = -Math.floor(canvasWidth / 2 / 100) * 100;
+      x <= Math.floor(canvasWidth / 2 / 100) * 100;
+      x += 100
+    ) {
+      if (x === 0) continue
+      ctx.moveTo(x, -canvasHeight / 2)
+      ctx.lineTo(x, canvasHeight / 2)
+    }
+    for (
+      let y = -Math.floor(canvasHeight / 2 / 100) * 100;
+      y <= Math.floor(canvasHeight / 2 / 100) * 100;
+      y += 100
+    ) {
+      if (y === 0) continue
+      ctx.moveTo(-canvasWidth / 2, y)
+      ctx.lineTo(canvasWidth / 2, y)
+    }
+    ctx.stroke()
+
     ctx.restore()
 
-    const theta = (-rotation * Math.PI) / 180
+    const { position, size, pivot, rotation } = rect
+    const theta = (rotation * Math.PI) / 180
     const cosTheta = Math.cos(theta)
     const sinTheta = Math.sin(theta)
 
@@ -51,12 +74,12 @@ const CanvasView = ({ rect, width = 500, height = 500 }: CanvasViewProps) => {
     const targetPivotWorldY = position.y + pivot.y
 
     const a = cosTheta
-    const b = -sinTheta
-    const c = -sinTheta
+    const b = sinTheta
+    const c = sinTheta
     const d = -cosTheta
 
-    const rotatedVecX = -pivot.x * cosTheta + pivot.y * sinTheta
-    const rotatedVecY = -pivot.x * sinTheta - pivot.y * cosTheta
+    const rotatedVecX = -pivot.x * cosTheta - pivot.y * sinTheta
+    const rotatedVecY = pivot.x * sinTheta - pivot.y * cosTheta
 
     const finalWorldOriginX = targetPivotWorldX + rotatedVecX
     const finalWorldOriginY = targetPivotWorldY + rotatedVecY
@@ -74,10 +97,8 @@ const CanvasView = ({ rect, width = 500, height = 500 }: CanvasViewProps) => {
 
     ctx.resetTransform()
 
-    const logicalPivotX = position.x + pivot.x
-    const logicalPivotY = position.y + pivot.y
-    const pivotCanvasX = logicalPivotX + canvasWidth / 2
-    const pivotCanvasY = -logicalPivotY + canvasHeight / 2
+    const pivotCanvasX = targetPivotWorldX + canvasWidth / 2
+    const pivotCanvasY = -targetPivotWorldY + canvasHeight / 2
 
     ctx.fillStyle = theme.colors.pivotColor
     ctx.beginPath()

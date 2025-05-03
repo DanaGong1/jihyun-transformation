@@ -7,6 +7,7 @@ export const theme = {
     error: '#DC3545',
     appBackground: '#FFECEC',
     canvasBackground: '#F5F5F5',
+    gridColor: '#CCC',
     borderColor: '#CCC',
     axisColor: '#8A8A8A',
     rectFill: '#CCC',

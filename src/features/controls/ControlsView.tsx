@@ -1,4 +1,3 @@
-import React from 'react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -29,13 +28,13 @@ export interface ControlsFormValues {
   pivotY: number
 }
 
-const ControlsView: React.FC<ControlsViewProps> = ({
+const ControlsView = ({
   rect,
   cornerCoords,
   onMove,
   onRotate,
   onPivotChange,
-}) => {
+}: ControlsViewProps) => {
   const {
     register,
     handleSubmit,

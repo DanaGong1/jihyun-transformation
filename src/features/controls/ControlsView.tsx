@@ -7,6 +7,7 @@ import { formatCoord } from '@/utils'
 import { ControlsContainer, CoordinatesList, ListItem } from './Controls.styles'
 import { ActionSection } from './components'
 import { ActionSectionContainer, ActionSectionTitle } from './components/ActionSection.styles'
+import { moveFields, pivotFields, rotateFields } from './constants'
 import { ControlsFormValues, useControlsForm } from './hooks'
 
 interface ControlsViewProps {
@@ -47,45 +48,6 @@ const ControlsView: React.FC<ControlsViewProps> = ({
     `2. right, top: ${formatCoord(cornerCoords[2]?.x ?? 0)} / ${formatCoord(cornerCoords[2]?.y ?? 0)}`,
     `3. right, bottom: ${formatCoord(cornerCoords[1]?.x ?? 0)} / ${formatCoord(cornerCoords[1]?.y ?? 0)}`,
     `4. left, bottom: ${formatCoord(cornerCoords[0]?.x ?? 0)} / ${formatCoord(cornerCoords[0]?.y ?? 0)}`,
-  ]
-
-  const moveFields = [
-    {
-      name: 'posX' as const,
-      label: 'X:',
-      labelSize: 'medium' as const,
-      requiredMessage: 'X 좌표를 입력하세요.',
-    },
-    {
-      name: 'posY' as const,
-      label: 'Y:',
-      labelSize: 'medium' as const,
-      requiredMessage: 'Y 좌표를 입력하세요.',
-    },
-  ]
-
-  const rotateFields = [
-    {
-      name: 'rotation' as const,
-      label: '각도:',
-      labelSize: 'medium' as const,
-      requiredMessage: '회전 각도를 입력하세요.',
-    },
-  ]
-
-  const pivotFields = [
-    {
-      name: 'pivotX' as const,
-      label: 'X:',
-      labelSize: 'medium' as const,
-      requiredMessage: '원점 X 좌표를 입력하세요.',
-    },
-    {
-      name: 'pivotY' as const,
-      label: 'Y:',
-      labelSize: 'medium' as const,
-      requiredMessage: '원점 Y 좌표를 입력하세요.',
-    },
   ]
 
   return (

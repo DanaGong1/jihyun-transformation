@@ -19,6 +19,7 @@ const Input = ({ label, labelSize, hasError, errorMessage, ...props }: InputProp
   return (
     <InputContainer>
       {label && <InputLabel labelSize={labelSize}>{label}</InputLabel>}
+
       <InputBaseContainer>
         <InputBase hasError={hasError} {...props} />
         {hasError && <ErrorMessage>{errorMessage}</ErrorMessage>}

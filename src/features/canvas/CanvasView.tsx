@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import { theme } from '@/styles/theme'
 import { RectState } from '@/types'
 
-import { Canvas, CanvasContainer } from './CanvasView.style'
+import { Canvas, CanvasContainer } from './CanvasView.styles'
 
 interface CanvasViewProps {
   rect: RectState

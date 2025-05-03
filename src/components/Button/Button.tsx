@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react'
 
-import { ButtonBase } from './Button.style'
+import { ButtonBase } from './Button.styles'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode

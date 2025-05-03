@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { Button } from '@/components'
 import { Point, RectState } from '@/types'
 import { formatCoord } from '@/utils'
 
@@ -73,6 +75,20 @@ const ControlsView: React.FC<ControlsViewProps> = ({
     onPivotChange(data.pivotX, data.pivotY)
   }
 
+  const handleResetAll = () => {
+    reset({
+      posX: 0,
+      posY: 0,
+      rotation: 0,
+      pivotX: 0,
+      pivotY: 0,
+    })
+
+    onMove(0, 0)
+    onRotate(0)
+    onPivotChange(0, 0)
+  }
+
   const cornerLabels = [
     `1. left, top: ${formatCoord(cornerCoords[3]?.x ?? 0)} / ${formatCoord(cornerCoords[3]?.y ?? 0)}`,
     `2. right, top: ${formatCoord(cornerCoords[2]?.x ?? 0)} / ${formatCoord(cornerCoords[2]?.y ?? 0)}`,
@@ -128,6 +144,10 @@ const ControlsView: React.FC<ControlsViewProps> = ({
             <ListItem key={index}>{label}</ListItem>
           ))}
         </CoordinatesList>
+
+        <Button type="button" onClick={handleResetAll}>
+          초기화
+        </Button>
       </ActionSectionContainer>
 
       <ActionSection<ControlsFormValues>

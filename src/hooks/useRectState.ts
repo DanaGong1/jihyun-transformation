@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 
-import { RectState } from '../types'
+import { Point, RectState } from '@/types'
+import { calculateCornerCoordinates } from '@/utils'
 
 const initialRectState: RectState = {
   position: { x: 0, y: 0 },
@@ -11,9 +12,16 @@ const initialRectState: RectState = {
 
 export const useRectState = () => {
   const [rect, setRect] = useState<RectState>(initialRectState)
+  const [cornerCoords, setCornerCoords] = useState<Point[]>(
+    calculateCornerCoordinates(initialRectState),
+  )
 
   const updateRectState = useCallback((newRect: Partial<RectState>) => {
-    setRect((prevRect: RectState) => ({ ...prevRect, ...newRect }))
+    setRect((prevRect) => {
+      const updatedRect = { ...prevRect, ...newRect }
+      setCornerCoords(calculateCornerCoordinates(updatedRect))
+      return updatedRect
+    })
   }, [])
 
   const moveRect = useCallback(
@@ -39,6 +47,7 @@ export const useRectState = () => {
 
   return {
     rect,
+    cornerCoords,
     moveRect,
     rotateRect,
     changePivot,

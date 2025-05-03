@@ -6,7 +6,7 @@ import {
   InputBaseContainer,
   InputContainer,
   InputLabel,
-} from './Input.style'
+} from './Input.styles'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string

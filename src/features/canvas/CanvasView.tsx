@@ -21,7 +21,7 @@ const CanvasView = ({ rect, width = 500, height = 500 }: CanvasViewProps) => {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const { position, size, pivot } = rect
+    const { position, size, pivot, rotation } = rect
     const canvasWidth = canvas.width
     const canvasHeight = canvas.height
 
@@ -43,21 +43,39 @@ const CanvasView = ({ rect, width = 500, height = 500 }: CanvasViewProps) => {
 
     ctx.restore()
 
-    const logicalX = position.x
-    const logicalY = position.y
+    const theta = (-rotation * Math.PI) / 180
+    const cosTheta = Math.cos(theta)
+    const sinTheta = Math.sin(theta)
 
-    const canvasTopLeftX = logicalX + canvasWidth / 2
-    const canvasTopLeftY = -(logicalY + size.height) + canvasHeight / 2
+    const targetPivotWorldX = position.x + pivot.x
+    const targetPivotWorldY = position.y + pivot.y
+
+    const a = cosTheta
+    const b = -sinTheta
+    const c = -sinTheta
+    const d = -cosTheta
+
+    const rotatedVecX = -pivot.x * cosTheta + pivot.y * sinTheta
+    const rotatedVecY = -pivot.x * sinTheta - pivot.y * cosTheta
+
+    const finalWorldOriginX = targetPivotWorldX + rotatedVecX
+    const finalWorldOriginY = targetPivotWorldY + rotatedVecY
+
+    const e = finalWorldOriginX + canvasWidth / 2
+    const f = -finalWorldOriginY + canvasHeight / 2
+
+    ctx.setTransform(a, b, c, d, e, f)
 
     ctx.fillStyle = theme.colors.rectFill
     ctx.strokeStyle = theme.colors.rectStroke
     ctx.lineWidth = 1
-    ctx.fillRect(canvasTopLeftX, canvasTopLeftY, size.width, size.height)
-    ctx.strokeRect(canvasTopLeftX, canvasTopLeftY, size.width, size.height)
+    ctx.fillRect(0, 0, size.width, size.height)
+    ctx.strokeRect(0, 0, size.width, size.height)
+
+    ctx.resetTransform()
 
     const logicalPivotX = position.x + pivot.x
     const logicalPivotY = position.y + pivot.y
-
     const pivotCanvasX = logicalPivotX + canvasWidth / 2
     const pivotCanvasY = -logicalPivotY + canvasHeight / 2
 

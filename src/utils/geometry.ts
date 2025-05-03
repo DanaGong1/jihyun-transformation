@@ -17,8 +17,8 @@ export function calculateCornerCoordinates(rect: RectState): Point[] {
   const sinTheta = Math.sin(theta)
 
   const rotatedCorners = cornersLocal.map((corner) => ({
-    x: corner.x * cosTheta - corner.y * sinTheta,
-    y: corner.x * sinTheta + corner.y * cosTheta,
+    x: corner.x * cosTheta + corner.y * sinTheta,
+    y: -corner.x * sinTheta + corner.y * cosTheta,
   }))
 
   const worldCorners = rotatedCorners.map((corner) => ({

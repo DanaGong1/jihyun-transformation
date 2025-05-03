@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 
 export const ActionSectionContainer = styled.div`
+  background-color: ${({ theme }) => theme.colors.background};
   border: 1px solid ${({ theme }) => theme.colors.borderColor};
   border-radius: ${({ theme }) => theme.borderRadius};
-  padding: 16px;
-  background-color: ${({ theme }) => theme.colors.background};
   box-shadow: ${({ theme }) => theme.boxShadow};
+  padding: 16px;
 `
 
 export const ActionSectionTitle = styled.h4`

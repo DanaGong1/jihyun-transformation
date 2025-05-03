@@ -5,9 +5,9 @@ export const ControlsContainer = styled.div`
   flex-direction: column;
   gap: 16px;
   width: 300px;
-  padding: 16px;
-  border-radius: ${({ theme }) => theme.borderRadius};
   background-color: ${({ theme }) => theme.colors.background};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  padding: 16px;
 `
 
 export const CoordinatesList = styled.ul`

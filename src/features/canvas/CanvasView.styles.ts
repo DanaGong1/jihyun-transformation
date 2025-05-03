@@ -11,6 +11,6 @@ export const CanvasContainer = styled.div`
 `
 
 export const Canvas = styled.canvas`
-  border: 2px solid ${({ theme }) => theme.colors.borderColor};
   background-color: ${({ theme }) => theme.colors.canvasBackground};
+  border: 2px solid ${({ theme }) => theme.colors.borderColor};
 `
